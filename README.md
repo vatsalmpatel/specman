@@ -27,6 +27,7 @@
 - [🚶 Community Walkthroughs](#-community-walkthroughs)
 - [🛠️ Community Friends](#️-community-friends)
 - [🤖 Supported AI Coding Agent Integrations](#-supported-ai-coding-agent-integrations)
+- [🗿 Caveman: Built-in Token Compression](#-caveman-built-in-token-compression)
 - [🔧 Specify CLI Reference](#-specify-cli-reference)
 - [🧩 Making Spec Kit Your Own: Extensions & Presets](#-making-spec-kit-your-own-extensions--presets)
 - [📚 Core Philosophy](#-core-philosophy)
@@ -339,6 +340,55 @@ Additional commands for enhanced quality and validation:
 | `/speckit.clarify`   | `speckit-clarify`      | Clarify underspecified areas (recommended before `/speckit.plan`; formerly `/quizme`)                                                |
 | `/speckit.analyze`   | `speckit-analyze`      | Cross-artifact consistency & coverage analysis (run after `/speckit.tasks`, before `/speckit.implement`)                             |
 | `/speckit.checklist` | `speckit-checklist`    | Generate custom quality checklists that validate requirements completeness, clarity, and consistency (like "unit tests for English") |
+
+## 🗿 Caveman: Built-in Token Compression
+
+Spec Kit ships with [Caveman](https://github.com/JuliusBrussee/caveman) built in — a token-compression communication style that reduces AI output by ~75% while keeping all technical substance intact. When you initialize a Claude Code project with `specify init`, Caveman **full** mode is activated automatically in `CLAUDE.md`. No separate installation or slash command required.
+
+**What Caveman does:**
+
+- Strips filler words, articles, pleasantries, and hedging from responses
+- Uses terse fragments instead of full sentences: `[thing] [action] [reason]. [next step].`
+- Preserves all technical terms, code blocks, file paths, URLs, commands, and security warnings
+- Auto-suspends for security warnings and irreversible action confirmations, then resumes
+
+> Currently active for **Claude Code** only. Other agent integrations are planned.
+
+### Caveman Commands (Claude Code)
+
+Four slash commands ship as native skills alongside the core speckit workflow:
+
+| Skill | Description |
+|-------|-------------|
+| `/speckit-caveman` | Switch intensity mode: `lite`, `full`, `ultra`, or `off` |
+| `/speckit-caveman-commit` | Generate a Conventional Commits message from staged changes |
+| `/speckit-caveman-review` | One-line-per-finding code review (`L<n>: severity problem. fix.`) |
+| `/speckit-caveman-compress` | Compress a context file (e.g. `CLAUDE.md`) to reduce input tokens; creates a `.original.md` backup |
+
+**Intensity levels:**
+
+| Level | What changes | Approx. token reduction |
+|-------|-------------|------------------------|
+| `lite` | Removes filler/hedging; keeps articles and full sentences | ~30-40% |
+| `full` *(default)* | Removes articles, uses fragments, shorter synonyms | ~75% |
+| `ultra` | Also abbreviates terms, strips conjunctions, uses `→` for causality | Maximum |
+| `off` | Normal verbose responses | — |
+
+**Examples:**
+
+```bash
+# Switch to ultra mode mid-session
+/speckit-caveman ultra
+
+# Generate a commit message for staged changes
+/speckit-caveman-commit
+
+# One-line code review of a file
+/speckit-caveman-review src/auth.py
+
+# Compress CLAUDE.md and save a backup
+/speckit-caveman-compress CLAUDE.md
+```
 
 ## 🔧 Specify CLI Reference
 

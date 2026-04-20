@@ -42,7 +42,7 @@ Run `test_agent_config_consistency.py` whenever you change agent metadata, conte
 
 ### Templates and scripts
 
-- **`templates/commands/`** — Markdown prompt templates that define slash commands (`/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, etc.).
+- **`templates/commands/`** — Markdown prompt templates that define slash commands. All `.md` files here are auto-discovered and installed as skills — no registration required.
 - **`templates/*-template.md`** — Core workflow artifacts (spec, plan, tasks, checklist, constitution).
 - **`scripts/bash/`** and **`scripts/powershell/`** — Cross-platform scripts invoked by the workflow commands. `common.sh` is sourced by several other scripts — changes to it affect multiple commands.
 - **`workflows/speckit/`** — Core workflow definitions.
@@ -51,6 +51,18 @@ Run `test_agent_config_consistency.py` whenever you change agent metadata, conte
 
 - **`extensions/`** — Bundled extensions (git, selftest, template) plus catalog.
 - **`presets/`** — Bundled presets (lean, scaffold, self-test) plus catalog.
+
+### Caveman integration (Claude Code)
+
+Caveman token-compression is bundled natively. Key files:
+
+- **`src/specify_cli/integrations/claude/__init__.py`** — `ClaudeIntegration._build_context_section()` overrides the base class to append caveman "full" mode rules into the `<!-- SPECKIT START/END -->` block in `CLAUDE.md`. `ARGUMENT_HINTS` includes entries for all four caveman commands.
+- **`templates/commands/caveman.md`** — Mode switcher skill (lite/full/ultra/off).
+- **`templates/commands/caveman-commit.md`** — Conventional Commits generator from staged diff.
+- **`templates/commands/caveman-review.md`** — One-line-per-finding code review.
+- **`templates/commands/caveman-compress.md`** — Context file compressor with `.original.md` backup.
+
+The four caveman templates are auto-discovered by `list_command_templates()` and installed alongside all other skills. The always-on rules are injected by `upsert_context_section()` which is called during `specify init` and on plan updates.
 
 ## Manual testing
 
