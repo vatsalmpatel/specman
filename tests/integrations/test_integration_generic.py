@@ -246,6 +246,10 @@ class TestGenericIntegration:
         expected = sorted([
             "AGENTS.md",
             ".myagent/commands/speckit.analyze.md",
+            ".myagent/commands/speckit.caveman-commit.md",
+            ".myagent/commands/speckit.caveman-compress.md",
+            ".myagent/commands/speckit.caveman-review.md",
+            ".myagent/commands/speckit.caveman.md",
             ".myagent/commands/speckit.checklist.md",
             ".myagent/commands/speckit.clarify.md",
             ".myagent/commands/speckit.constitution.md",
@@ -301,6 +305,10 @@ class TestGenericIntegration:
         expected = sorted([
             "AGENTS.md",
             ".myagent/commands/speckit.analyze.md",
+            ".myagent/commands/speckit.caveman-commit.md",
+            ".myagent/commands/speckit.caveman-compress.md",
+            ".myagent/commands/speckit.caveman-review.md",
+            ".myagent/commands/speckit.caveman.md",
             ".myagent/commands/speckit.checklist.md",
             ".myagent/commands/speckit.clarify.md",
             ".myagent/commands/speckit.constitution.md",

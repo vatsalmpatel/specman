@@ -251,7 +251,8 @@ class MarkdownIntegrationTests:
     # -- Complete file inventory ------------------------------------------
 
     COMMAND_STEMS = [
-        "analyze", "checklist", "clarify", "constitution",
+        "analyze", "caveman", "caveman-commit", "caveman-compress", "caveman-review",
+        "checklist", "clarify", "constitution",
         "implement", "plan", "specify", "tasks", "taskstoissues",
     ]
 

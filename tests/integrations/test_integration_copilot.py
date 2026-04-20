@@ -123,9 +123,10 @@ class TestCopilotIntegration:
         agents_dir = tmp_path / ".github" / "agents"
         assert agents_dir.is_dir()
         agent_files = sorted(agents_dir.glob("speckit.*.agent.md"))
-        assert len(agent_files) == 9
+        assert len(agent_files) == 13
         expected_commands = {
-            "analyze", "checklist", "clarify", "constitution",
+            "analyze", "caveman", "caveman-commit", "caveman-compress", "caveman-review",
+            "checklist", "clarify", "constitution",
             "implement", "plan", "specify", "tasks", "taskstoissues",
         }
         actual_commands = {f.name.removeprefix("speckit.").removesuffix(".agent.md") for f in agent_files}
@@ -176,6 +177,10 @@ class TestCopilotIntegration:
         actual = sorted(p.relative_to(project).as_posix() for p in project.rglob("*") if p.is_file())
         expected = sorted([
             ".github/agents/speckit.analyze.agent.md",
+            ".github/agents/speckit.caveman-commit.agent.md",
+            ".github/agents/speckit.caveman-compress.agent.md",
+            ".github/agents/speckit.caveman-review.agent.md",
+            ".github/agents/speckit.caveman.agent.md",
             ".github/agents/speckit.checklist.agent.md",
             ".github/agents/speckit.clarify.agent.md",
             ".github/agents/speckit.constitution.agent.md",
@@ -185,6 +190,10 @@ class TestCopilotIntegration:
             ".github/agents/speckit.tasks.agent.md",
             ".github/agents/speckit.taskstoissues.agent.md",
             ".github/prompts/speckit.analyze.prompt.md",
+            ".github/prompts/speckit.caveman-commit.prompt.md",
+            ".github/prompts/speckit.caveman-compress.prompt.md",
+            ".github/prompts/speckit.caveman-review.prompt.md",
+            ".github/prompts/speckit.caveman.prompt.md",
             ".github/prompts/speckit.checklist.prompt.md",
             ".github/prompts/speckit.clarify.prompt.md",
             ".github/prompts/speckit.constitution.prompt.md",
@@ -235,6 +244,10 @@ class TestCopilotIntegration:
         actual = sorted(p.relative_to(project).as_posix() for p in project.rglob("*") if p.is_file())
         expected = sorted([
             ".github/agents/speckit.analyze.agent.md",
+            ".github/agents/speckit.caveman-commit.agent.md",
+            ".github/agents/speckit.caveman-compress.agent.md",
+            ".github/agents/speckit.caveman-review.agent.md",
+            ".github/agents/speckit.caveman.agent.md",
             ".github/agents/speckit.checklist.agent.md",
             ".github/agents/speckit.clarify.agent.md",
             ".github/agents/speckit.constitution.agent.md",
@@ -244,6 +257,10 @@ class TestCopilotIntegration:
             ".github/agents/speckit.tasks.agent.md",
             ".github/agents/speckit.taskstoissues.agent.md",
             ".github/prompts/speckit.analyze.prompt.md",
+            ".github/prompts/speckit.caveman-commit.prompt.md",
+            ".github/prompts/speckit.caveman-compress.prompt.md",
+            ".github/prompts/speckit.caveman-review.prompt.md",
+            ".github/prompts/speckit.caveman.prompt.md",
             ".github/prompts/speckit.checklist.prompt.md",
             ".github/prompts/speckit.clarify.prompt.md",
             ".github/prompts/speckit.constitution.prompt.md",
