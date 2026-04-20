@@ -100,7 +100,8 @@ class SkillsIntegrationTests:
         skill_files = [f for f in created if "scripts" not in f.parts]
 
         expected_commands = {
-            "analyze", "checklist", "clarify", "constitution",
+            "analyze", "caveman", "caveman-commit", "caveman-compress", "caveman-review",
+            "checklist", "clarify", "constitution",
             "implement", "plan", "specify", "tasks", "taskstoissues",
         }
 
@@ -343,7 +344,8 @@ class SkillsIntegrationTests:
     # -- Complete file inventory ------------------------------------------
 
     _SKILL_COMMANDS = [
-        "analyze", "checklist", "clarify", "constitution",
+        "analyze", "caveman", "caveman-commit", "caveman-compress", "caveman-review",
+        "checklist", "clarify", "constitution",
         "implement", "plan", "specify", "tasks", "taskstoissues",
     ]
 

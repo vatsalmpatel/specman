@@ -483,6 +483,10 @@ class TomlIntegrationTests:
 
     COMMAND_STEMS = [
         "analyze",
+        "caveman",
+        "caveman-commit",
+        "caveman-compress",
+        "caveman-review",
         "checklist",
         "clarify",
         "constitution",

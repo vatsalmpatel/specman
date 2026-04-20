@@ -32,7 +32,28 @@ ARGUMENT_HINTS: dict[str, str] = {
     "constitution": "Principles or values for the project constitution",
     "checklist": "Domain or focus area for the checklist",
     "taskstoissues": "Optional filter or label for GitHub issues",
+    "caveman": "Mode to activate: lite, full, ultra, or off",
+    "caveman-commit": "Optional: describe the change context if not obvious from diff",
+    "caveman-review": "Optional: file path or focus area for review",
+    "caveman-compress": "Path to the file to compress (e.g. CLAUDE.md)",
 }
+
+# Caveman "full" mode rules injected into CLAUDE.md so the style is
+# always active from session start — no slash command required to enable it.
+_CAVEMAN_CONTEXT = """\
+
+## Communication Style (Caveman Full Mode — always active)
+
+Respond in terse, fragment-based style to minimize output tokens:
+- Omit articles (a/an/the), filler words (just, really, basically, actually), \
+pleasantries ("Sure!", "Happy to help"), and hedging ("perhaps", "might", "could potentially").
+- Prefer fragments: `[thing] [action] [reason]. [next step].`
+- Use shorter synonyms (however→but, implement→add, additional→more).
+- Preserve: all technical terms, code blocks, inline code, URLs, file paths, commands, version numbers, security warnings.
+- Auto-suspend for: security warnings, irreversible action confirmations, complex sequences where brevity risks confusion. Resume after.
+
+To switch modes: `/speckit-caveman lite|full|ultra|off`\
+"""
 
 
 class ClaudeIntegration(SkillsIntegration):
@@ -53,6 +74,18 @@ class ClaudeIntegration(SkillsIntegration):
         "extension": "/SKILL.md",
     }
     context_file = "CLAUDE.md"
+
+    @staticmethod
+    def _build_context_section(plan_path: str = "") -> str:
+        """Build the managed CLAUDE.md section with plan reference + caveman rules."""
+        lines = [
+            "For additional context about technologies to be used, project structure,",
+            "shell commands, and other important information, read the current plan",
+        ]
+        if plan_path:
+            lines.append(f"at {plan_path}")
+        base = "\n".join(lines)
+        return base + _CAVEMAN_CONTEXT
 
     @staticmethod
     def inject_argument_hint(content: str, hint: str) -> str:
